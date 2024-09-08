@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaHome, FaSearch, FaVideo, FaUser } from 'react-icons/fa';
 
-const Header = () => {
+const Header = ({ onSearch }) => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    onSearch(e.target.value); // Pass the search query to the parent component
+  };
+
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto flex justify-between items-center p-4">
@@ -10,6 +17,8 @@ const Header = () => {
         <div className="hidden md:block w-1/3">
           <input
             type="text"
+            value={searchQuery}
+            onChange={handleSearchChange}
             placeholder="Search..."
             className="w-full px-4 py-2 rounded-full bg-gray-100 focus:outline-none"
           />
